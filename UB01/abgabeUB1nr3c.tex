@@ -1,0 +1,114 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{chemfig}
+\usepackage{chemformula}
+\usepackage{ngerman}
+\usepackage{color}
+\usepackage{arydshln}
+\usepackage{verbatim}
+\usepackage{ulem}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{geometry}
+\usepackage{stmaryrd}
+\newcommand{\RM}[1]{\MakeUppercase{\romannumeral #1{}}}
+\newcommand{\leadingzero}[1]{\ifnum #1<10 0\the#1\else\the#1\fi}
+\newcommand{\todayshort}{\leadingzero{\day}.\leadingzero{\month}.\the\year} 
+\newcommand{\equ}{\Leftrightarrow} 
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\usetikzlibrary{automata}
+\setcounter{section}{-1}
+
+\definecolor{white}{rgb}{1,1,1}
+\definecolor{darkred}{rgb}{0.3,0,0}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\definecolor{pink}{rgb}{0.78,0.09,0.51}
+\definecolor{purple}{rgb}{0.28,0.24,0.55}
+\definecolor{orange}{rgb}{1,0.6,0.0}
+\definecolor{grey}{rgb}{0.4,0.4,0.4}
+\definecolor{aquamarine}{rgb}{0.4,0.8,0.65}
+\definecolor{red}{rgb}{0.75,0,0}
+\definecolor{green}{rgb}{0,0.6,0}
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{yello}{rgb}{0,0.16,0.16}
+
+\author{Tom Heine}
+
+\title{Abgabe:}
+
+\date{\today}
+
+\geometry{a4paper,
+	left=25mm,
+	right=25mm,
+	top=20mm%,bottom=30mm
+}
+
+\pagestyle{fancy}
+\fancyhead[L]{
+	\begin{tabular}{l}
+		Heine, Tom Martin\\
+		Kühne, Marc Sebastian\\
+	\end{tabular}
+}	
+% z.B Name und Matrikelnummer
+% Zentraler Teil des Headers
+\fancyhead[C]{
+	\begin{large}
+			Abgabe: 
+	\end{large}\\
+	Version vom 16.10.2018
+} 
+% z.B. Name der Veranstaltung
+
+% Rechter Teil des Headers 
+\fancyhead[R]{
+	\begin{tabular}{|rr|}\hline
+		Abgabegruppe:& \\
+		Wochentag:& \\\hline
+		\\
+	\end{tabular}
+} 
+
+\fancyfoot[C]{
+	\thepage\space von \pageref{LastPage}
+}
+\fancyfoot[R]{
+	Datum: \todayshort
+}
+
+\headheight=45pt
+\begin{document}
+%\maketitle
+%\tableofcontents
+\newpage
+	
+\section*{Aufgabe 3c}
+	$s = a + b$, wobei sich das Ergebnis s für die Addition von zwei 4-Bit Zahlen a,b sich wie gefolgt in Bitschreibweise zusammensetzt: $s = c_4 s_3s_2s_1s_0$ \\
+	$s_i = a_i \oplus b_i \oplus c_i$ für $i \in \{0,1,2,3\}$ mit $c_0$ als $c_{in}$ und $c_4$ als letzten Übertrag \\
+	\\
+	$s_0 = a_0 \oplus b_0 \oplus c_0$ \\
+	$s_1 = a_1 \oplus b_1 \oplus c_1$ \\
+	$s_2 = a_2 \oplus b_2 \oplus c_2$ \\
+	$s_3 = a_3 \oplus b_3 \oplus c_3$ \\
+	$c_4$ \\
+	\\
+	\\
+	Die Carries $c_i$ lassen mit den folgenden Schaltfunktionen vorberechnen \\
+	$c_i = g_{i-1} \lor p_{i-1}c_{i-1}$ mit $g_i = a_ib_i$ und $p_i = a_i \lor b_i$, sodass \\
+	\\
+	$c_1 = g_0 \lor p_0c_0$  (Einmal ausführlich: $c_1 = a_0b_0 \lor (a_0 \lor b_0)c_0$)\\
+	$c_2 = g_1 \lor p_1g_0 \lor p_1p_0c_0$ \\
+	$c_3 = g_2 \lor p_2g_1 \lor p_2p_1g_0 \lor p_2p_1p_0c_0$ \\
+	$c_4 = g_3 \lor p_3g_2 \lor p_3p_2g_1 \lor p_3p_2p_1g_0 \lor p_3p_2p_1p_0c_0$ \\
+\end{document}
