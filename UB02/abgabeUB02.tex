@@ -18,8 +18,9 @@
 \usepackage{amsthm}
 \usepackage{enumerate}
 \usepackage{geometry}
+\usepackage{lscape}
 \usepackage{stmaryrd}
-%\usepackage{array}
+\usepackage{array}
 \usepackage{longtable}
 \newcommand{\RM}[1]{\MakeUppercase{\romannumeral #1{}}}
 \newcommand{\leadingzero}[1]{\ifnum #1<10 0\the#1\else\the#1\fi}
@@ -30,10 +31,10 @@
 \usetikzlibrary{automata}
 \setcounter{section}{-1}
 
-%\usepackage{tabularx}
-%\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
-%\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
-%\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+\usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
 
 \definecolor{white}{rgb}{1,1,1}
 \definecolor{darkred}{rgb}{0.3,0,0}
@@ -124,15 +125,71 @@
 	\end{center}
 	\section*{Aufgabe 1}
 	\subsection*{(a) 0 001 000010 000100}
-		MOV R2,R4
+		MOV R2, R4
 	\subsection*{(b) 0 110 010111 000011 |
 					 0 000 000000 010001}
-		ADD R23,R3\\
-		R17
+		ADD R23, R3, 17
 	\subsection*{(c) 0 000 110101 010010}
 		PUSH R18
 	\newpage
 	\section*{Aufgabe 2}
 	\newpage
+%\begin{landscape}
+		
 	\section*{Aufgabe 3}
+	
+	\begin{comment}
+		\begin{center}
+		\begin{tabular}{|c |c | c|} 
+			\hline
+			Adresse & Mikrobefehl & Kommentar\\
+			\hline\hline
+			0 & RD & ließt Befehl ein\\ 
+			\hline
+			1 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
+			\hline
+			2 & DECODE & dekodiert IR\\
+			\hline
+			3 & IR\_op\_out& ließt IR\\
+			\hline
+			4 & SR = Rop2 & wählt Register 2\\
+			\hline
+			5 & R\_out & schreibt in Register 2\\
+			\hline
+			6 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\end{comment}
+	
+	\begin{table}[h]
+		\begin{longtable}{|l|l|L{5.7cm}|} 
+			\hline
+			%\toprule
+			Adresse & Mikrobefehl & Kommentar\\
+			\hline\hline
+			%\midrule\midrule\endhead
+			0 & IP\_out, MAR\_in, RD, A\_in, F = A+1, NA[1] & Befehl wird aus dem Hauptspeicher in die ALU geladen\\ \hline
+			1 & ALU\_out, IP\_in, WRDY, NA[2] & wartet, bis Speicherzugriff beendet wurde \\ \hline
+			2 & MDR\_out, IR\_in, DECODE[jpz: 3, sub: 8] & Befehl wird gelesen und dekodiert\\
+			\hline\hline
+			3 & IP\_out, MAR\_in, RD,  A\_in, F = A+1, NA[4] & Sprungdistanz wird aus dem Hauptspeicher in die ALU gelesen\\ \hline
+			4 & ALU\_out, IP\_in, WRDY, NA[5] & wartet, bis Speicherzugriff beendet wurde \\ \hline
+			5 & IFZ[6] & prüft, ob die Flag 0 ist\\ \hline
+			6 & MDR\_out, B\_in, F=A+B, NA[7] & addiert Sprungdistanz in ALU zu IP\\ \hline
+			7 & ALU\_out, IP\_in, NA[0] & schreibt IP zurück \\
+			\hline\hline
+			8 & SR=ROP1, R\_out, MAR\_in, RD, NA[9] & erster Operand wird adressiert\\ \hline
+			9 & SR=ROP2, R\_out, A\_in, NA[10] & zweiter Operand wird in ALU geladen\\ \hline
+			10 & IRop\_out, B\_in, F=A+B, WRDY, NA[11] & Adresse des zweiten Operanden wird berechnet, wartet bis Speicherzugriff beendet\\ \hline
+			11& MDR\_out, Y\_in, NA[12]& erster Operand wird gespeichert\\ \hline
+			12&ALU\_out, MAR\_in, RD, NA[13]& zweiter Operandwird adressiert\\ \hline
+			13& Y\_out, B\_in, WRDY, NA[14] & ertser Operand wird in die ALU geladen\\ \hline
+			14& MDR\_out, A\_in, F=B-A, FLE, NA[15]& zweiter Operand wird ALU geladen und Subtraktion wird ausgeführt\\ \hline
+			15& ALU\_out, MDR\_in, WR, WRDY,  NA[0]& Ergebnis wird in den Speicher geschrieben und es wird gewartet, bis der Speicherzugriff beendet wurde\\
+			\hline
+			%\bottomrule
+		\end{longtable}
+	\end{table}
+%\end{landscape}
 \end{document}
