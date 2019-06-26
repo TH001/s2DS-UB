@@ -133,6 +133,40 @@
 		PUSH R18
 	\newpage
 	\section*{Aufgabe 2}
+	
+	Aufbauen eines Befehlsformats: \\
+	\\
+	\begin{tabular}{c l}
+		Speicher Wort- / Byteadressiert &$=>$ 1 Bit\\
+		16 Befehle &$=>$ 4 Bit \\
+		16 Register &$=>$ 4 Bit \\
+		$16*1024*1024$ Speicheradr. &$=>$ 24 Bit \\
+		5 Adressarten für 1. Operanten &$=>$ 3 Bit \\
+		1 Adressarten für 2. Operanten &$=>$ immer gleich (kein Bit) \\
+		meisten Platz für 1.Operanten - speicherdirekt &$=>$ 24 Bit \\
+		meisten Platz für 2.Operanten - registerdirekt &$=>$ 4 Bit \\
+	\end{tabular} \\
+	\\
+	Zusammenfügen zu einem Befehl einer 2-Adressmaschine: \\
+	\begin{tabular}{c | c | c | c | c}
+		Wort/Byte & Opcode & Adr.Art 1 & Operant 1 & Operant 2 \\
+		\hline
+		1 Bit & 4 Bit & 3 Bit & 24 Bit & 4 Bit
+	\end{tabular} \\
+	\\
+	Gesamt 36 Bit. \\
+	Da aber ganze Vielfache von Worten(16 Bit) gefordert, muss die Befehlslänge mit 12  'Reservebits' aufgefüllt werden, sodass sich folgendes ergibt: \\
+	\begin{tabular}{c | c | c | c | c | c}
+		r & b & x & i & a & b \\
+		\hline
+		Reservebits & Wort/Byte & Opcode & Adr.Art 1 & Operant 1 & Operant 2 \\
+		\hline
+		12 Bit & 1 Bit & 4 Bit & 3 Bit & 24 Bit & 4 Bit
+	\end{tabular} \\
+	\\
+	Befehlsformat: rrrrrrrrrrrr b xxxx iii aaaaaaaaaaaaaaaaaaaaaaaa bbbb \\
+	48 Bit Befehle 
+	
 	\newpage
 %\begin{landscape}
 		
