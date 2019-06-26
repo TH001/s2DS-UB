@@ -101,10 +101,10 @@
 % Rechter Teil des Headers
 \fancyhead[R]{
 	\begin{small}
-%		\begin{tabular}{|rr|}\hline
-			Abgabegruppe: AG42%\\\hline
-			%\multicolumn{1}{r}{Datum:}&\multicolumn{1}{r}{\todayshort}
-%		\end{tabular}
+		%		\begin{tabular}{|rr|}\hline
+		Abgabegruppe: AG42%\\\hline
+		%\multicolumn{1}{r}{Datum:}&\multicolumn{1}{r}{\todayshort}
+		%		\end{tabular}
 	\end{small}
 } 
 \fancyfoot[C]{
@@ -125,12 +125,12 @@
 	\end{center}
 	\section*{Aufgabe 1}
 	\subsection*{(a) 0 001 000010 000100}
-		MOV R2, R4
+	MOV R2, R4
 	\subsection*{(b) 0 110 010111 000011 |
-					 0 000 000000 010001}
-		ADD R23, R3, 17
+		0 000 000000 010001}
+	ADD R23, R3, 17
 	\subsection*{(c) 0 000 110101 010010}
-		PUSH R18
+	PUSH R18
 	\newpage
 	\section*{Aufgabe 2}
 	
@@ -150,7 +150,6 @@
 	Zusammenfügen zu einem Befehl einer 2-Adressmaschine: \\
 	\begin{tabular}{c | c | c | c | c}
 		Wort/Byte & Opcode & Adr.Art 1 & Operant 1 & Operant 2 \\
-		\hline
 		1 Bit & 4 Bit & 3 Bit & 24 Bit & 4 Bit
 	\end{tabular} \\
 	\\
@@ -158,9 +157,7 @@
 	Da aber ganze Vielfache von Worten(16 Bit) gefordert, muss die Befehlslänge mit 12  'Reservebits' aufgefüllt werden, sodass sich folgendes ergibt: \\
 	\begin{tabular}{c | c | c | c | c | c}
 		r & b & x & i & a & b \\
-		\hline
 		Reservebits & Wort/Byte & Opcode & Adr.Art 1 & Operant 1 & Operant 2 \\
-		\hline
 		12 Bit & 1 Bit & 4 Bit & 3 Bit & 24 Bit & 4 Bit
 	\end{tabular} \\
 	\\
@@ -168,31 +165,31 @@
 	48 Bit Befehle 
 	
 	\newpage
-%\begin{landscape}
-		
+	%\begin{landscape}
+	
 	\section*{Aufgabe 3}
 	
 	\begin{comment}
-		\begin{center}
-		\begin{tabular}{|c |c | c|} 
-			\hline
-			Adresse & Mikrobefehl & Kommentar\\
-			\hline\hline
-			0 & RD & ließt Befehl ein\\ 
-			\hline
-			1 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
-			\hline
-			2 & DECODE & dekodiert IR\\
-			\hline
-			3 & IR\_op\_out& ließt IR\\
-			\hline
-			4 & SR = Rop2 & wählt Register 2\\
-			\hline
-			5 & R\_out & schreibt in Register 2\\
-			\hline
-			6 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
-			\hline
-		\end{tabular}
+	\begin{center}
+	\begin{tabular}{|c |c | c|} 
+	\hline
+	Adresse & Mikrobefehl & Kommentar\\
+	\hline\hline
+	0 & RD & ließt Befehl ein\\ 
+	\hline
+	1 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
+	\hline
+	2 & DECODE & dekodiert IR\\
+	\hline
+	3 & IR\_op\_out& ließt IR\\
+	\hline
+	4 & SR = Rop2 & wählt Register 2\\
+	\hline
+	5 & R\_out & schreibt in Register 2\\
+	\hline
+	6 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
+	\hline
+	\end{tabular}
 	\end{center}
 	\end{comment}
 	
@@ -225,5 +222,5 @@
 			%\bottomrule
 		\end{longtable}
 	\end{table}
-%\end{landscape}
+	%\end{landscape}
 \end{document}
