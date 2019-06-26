@@ -1,0 +1,222 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{chemfig}
+\usepackage{chemformula}
+\usepackage{ngerman}
+\usepackage{color}
+\usepackage{arydshln}
+\usepackage{verbatim}
+\usepackage{ulem}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{geometry}
+\usepackage{lscape}
+\usepackage{stmaryrd}
+\usepackage{array}
+\usepackage{longtable}
+\newcommand{\RM}[1]{\MakeUppercase{\romannumeral #1{}}}
+\newcommand{\leadingzero}[1]{\ifnum #1<10 0\the#1\else\the#1\fi}
+\newcommand{\todayshort}{\leadingzero{\day}.\leadingzero{\month}.\the\year} 
+\newcommand{\equ}{\Leftrightarrow} 
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\usetikzlibrary{automata}
+\setcounter{section}{-1}
+
+\usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+
+\definecolor{white}{rgb}{1,1,1}
+\definecolor{darkred}{rgb}{0.3,0,0}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\definecolor{pink}{rgb}{0.78,0.09,0.51}
+\definecolor{purple}{rgb}{0.28,0.24,0.55}
+\definecolor{orange}{rgb}{1,0.6,0.0}
+\definecolor{grey}{rgb}{0.4,0.4,0.4}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+\definecolor{aquamarine}{rgb}{0.4,0.8,0.65}
+\definecolor{red}{rgb}{0.75,0,0}
+\definecolor{green}{rgb}{0,0.6,0}
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{yello}{rgb}{0,0.16,0.16}
+
+\definecolor{commentgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75}
+
+\lstset{ %
+	backgroundcolor=\color{white},
+	basicstyle=\footnotesize,
+	%breaklines=true,
+	%captionpos=b,
+	commentstyle=\color{commentgreen},
+	escapeinside={\%*}{*)},
+	keywordstyle=\color{blue},
+	stringstyle=\color{mauve},
+	morecomment=[s][\color{javadocblue}]{/**}{*/},
+	frame=single,
+	tabsize=4,
+}
+
+\author{Tom Heine}
+
+\title{Abgabe: algodat-blatt01}
+
+\date{\today}
+
+\geometry{a4paper,
+	left=25mm,
+	right=25mm,
+	top=20mm%,bottom=30mm
+}
+\pagestyle{fancy}
+\fancyhead[L]{
+	\begin{small}
+		Digitale Systeme\\
+		SOSE 2019
+	\end{small}
+}
+% z.B Name und Matrikelnummer
+
+% Zentraler Teil des Headers
+\fancyhead[C]{
+	\begin{large}
+		Abgabe: Blatt01
+	\end{large}\\
+	Version 04.06.2019
+} 
+% z.B. Name der Veranstaltung
+
+% Rechter Teil des Headers
+\fancyhead[R]{
+	\begin{small}
+		%		\begin{tabular}{|rr|}\hline
+		Abgabegruppe: AG42%\\\hline
+		%\multicolumn{1}{r}{Datum:}&\multicolumn{1}{r}{\todayshort}
+		%		\end{tabular}
+	\end{small}
+} 
+\fancyfoot[C]{
+	\thepage\space von \pageref{LastPage}
+}
+\headheight=25pt
+\begin{document}
+	%	\maketitle
+	%	\tableofcontents
+	\newpage
+	\begin{center}
+		\begin{tabular}{ccc}
+			Gerlach, Luisa&gerlaclu&599244\\
+			Heine, Tom Martin&heinetom&597978\\
+			Kühne, Marc Sebastian&kuehnese&599833\\
+			Seegert, Noah-Joël&segertno&596234
+		\end{tabular}
+	\end{center}
+	\section*{Aufgabe 1}
+	\subsection*{(a) 0 001 000010 000100}
+	MOV R2, R4
+	\subsection*{(b) 0 110 010111 000011 |
+		0 000 000000 010001}
+	ADD R23, R3, 17
+	\subsection*{(c) 0 000 110101 010010}
+	PUSH R18
+	\newpage
+	\section*{Aufgabe 2}
+	
+	Aufbauen eines Befehlsformats: \\
+	\\
+	\begin{tabular}{l l}
+		16 Befehle &$=>$ 4 Bit \\
+		2 - Adressmaschine &$=>$ (2 Adressfelder)\\
+		16 Register &$=>$ 4 Bit \\
+		16 MWorte Hauptspeicher &$=>$ 24 Bit \\
+		Speicher Wort-/Byteadressiert &$=>$ 1 Bit\\
+		5 Adressarten &$=>$ 3 Bit \\
+		16 Bit Konstanten &$=>$ 16 Bit \\
+		16 Bit Index &$=>$ 16 Bit \\
+		Datentransfer &$=>$ 1 Bit \\
+	\end{tabular} \\
+	\\
+	Befehlsformat:  \\
+	1.Wort:
+	\begin{tabular}{| c | c | c | c | c |}
+		Opcode & 1.Operand (reg.direkt) & Adressart & Richtung & 2.Operand \\
+		4 Bit & 4 Bit & 3 Bit & 1 Bit & 4 Bit
+	\end{tabular} \\
+	\\
+	2.Wort:
+	\begin{tabular}{| c |}
+		Konstante / Index / 1.Teil Speicheradresse \\
+		16 Bit 
+	\end{tabular} \\
+	\newpage
+	%\begin{landscape}
+	
+	\section*{Aufgabe 3}
+	
+	\begin{comment}
+	\begin{center}
+	\begin{tabular}{|c |c | c|} 
+	\hline
+	Adresse & Mikrobefehl & Kommentar\\
+	\hline\hline
+	0 & RD & ließt Befehl ein\\ 
+	\hline
+	1 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
+	\hline
+	2 & DECODE & dekodiert IR\\
+	\hline
+	3 & IR\_op\_out& ließt IR\\
+	\hline
+	4 & SR = Rop2 & wählt Register 2\\
+	\hline
+	5 & R\_out & schreibt in Register 2\\
+	\hline
+	6 & WRDY& wartet, bis Speicherzugriff beendet wurde \\
+	\hline
+	\end{tabular}
+	\end{center}
+	\end{comment}
+	
+	\begin{table}[h]
+		\begin{longtable}{|l|l|L{5.7cm}|} 
+			\hline
+			%\toprule
+			Adresse & Mikrobefehl & Kommentar\\
+			\hline\hline
+			%\midrule\midrule\endhead
+			0 & IP\_out, MAR\_in, RD, A\_in, F = A+1, NA[1] & Befehl wird aus dem Hauptspeicher in die ALU geladen\\ \hline
+			1 & ALU\_out, IP\_in, WRDY, NA[2] & wartet, bis Speicherzugriff beendet wurde \\ \hline
+			2 & MDR\_out, IR\_in, DECODE[jpz: 3, sub: 8] & Befehl wird gelesen und dekodiert\\
+			\hline\hline
+			3 & IP\_out, MAR\_in, RD,  A\_in, F = A+1, NA[4] & Sprungdistanz wird aus dem Hauptspeicher in die ALU gelesen\\ \hline
+			4 & ALU\_out, IP\_in, WRDY, NA[5] & wartet, bis Speicherzugriff beendet wurde \\ \hline
+			5 & IFZ[6] & prüft, ob die Flag 0 ist\\ \hline
+			6 & MDR\_out, B\_in, F=A+B, NA[7] & addiert Sprungdistanz in ALU zu IP\\ \hline
+			7 & ALU\_out, IP\_in, NA[0] & schreibt IP zurück \\
+			\hline\hline
+			8 & SR=ROP1, R\_out, MAR\_in, RD, NA[9] & erster Operand wird adressiert\\ \hline
+			9 & SR=ROP2, R\_out, A\_in, NA[10] & zweiter Operand wird in ALU geladen\\ \hline
+			10 & IRop\_out, B\_in, F=A+B, WRDY, NA[11] & Adresse des zweiten Operanden wird berechnet, wartet bis Speicherzugriff beendet\\ \hline
+			11& MDR\_out, Y\_in, NA[12]& erster Operand wird gespeichert\\ \hline
+			12&ALU\_out, MAR\_in, RD, NA[13]& zweiter Operandwird adressiert\\ \hline
+			13& Y\_out, B\_in, WRDY, NA[14] & ertser Operand wird in die ALU geladen\\ \hline
+			14& MDR\_out, A\_in, F=B-A, FLE, NA[15]& zweiter Operand wird ALU geladen und Subtraktion wird ausgeführt\\ \hline
+			15& ALU\_out, MDR\_in, WR, WRDY,  NA[0]& Ergebnis wird in den Speicher geschrieben und es wird gewartet, bis der Speicherzugriff beendet wurde\\
+			\hline
+			%\bottomrule
+		\end{longtable}
+	\end{table}
+	%\end{landscape}
+\end{document}
