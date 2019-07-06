@@ -1,0 +1,289 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{chemfig}
+\usepackage{chemformula}
+\usepackage{ngerman}
+\usepackage{color}
+\usepackage{arydshln}
+\usepackage{verbatim}
+\usepackage{ulem}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{geometry}
+\usepackage{lscape}
+\usepackage{stmaryrd}
+\usepackage{array}
+\usepackage{longtable}
+\newcommand{\RM}[1]{\MakeUppercase{\romannumeral #1{}}}
+\newcommand{\leadingzero}[1]{\ifnum #1<10 0\the#1\else\the#1\fi}
+\newcommand{\todayshort}{\leadingzero{\day}.\leadingzero{\month}.\the\year} 
+\newcommand{\equ}{\Leftrightarrow} 
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\usetikzlibrary{automata}
+\setcounter{section}{-1}
+
+\usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+
+\definecolor{white}{rgb}{1,1,1}
+\definecolor{darkred}{rgb}{0.3,0,0}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\definecolor{pink}{rgb}{0.78,0.09,0.51}
+\definecolor{purple}{rgb}{0.28,0.24,0.55}
+\definecolor{orange}{rgb}{1,0.6,0.0}
+\definecolor{grey}{rgb}{0.4,0.4,0.4}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+\definecolor{aquamarine}{rgb}{0.4,0.8,0.65}
+\definecolor{red}{rgb}{0.75,0,0}
+\definecolor{green}{rgb}{0,0.6,0}
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{yello}{rgb}{0,0.16,0.16}
+
+\definecolor{commentgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75}
+
+\lstset{ %
+	backgroundcolor=\color{white},
+	basicstyle=\footnotesize,
+	%breaklines=true,
+	%captionpos=b,
+	commentstyle=\color{commentgreen},
+	escapeinside={\%*}{*)},
+	keywordstyle=\color{blue},
+	stringstyle=\color{mauve},
+	morecomment=[s][\color{javadocblue}]{/**}{*/},
+	frame=single,
+	tabsize=4,
+}
+
+\author{Tom Heine}
+
+\title{Abgabe: algodat-blatt03}
+
+\date{\today}
+
+\geometry{a4paper,
+	left=25mm,
+	right=25mm,
+	top=20mm%,bottom=30mm
+}
+\pagestyle{fancy}
+\fancyhead[L]{
+	\begin{small}
+		Digitale Systeme\\
+		SOSE 2019
+	\end{small}
+}
+% z.B Name und Matrikelnummer
+
+% Zentraler Teil des Headers
+\fancyhead[C]{
+	\begin{large}
+		Abgabe: Blatt03
+	\end{large}\\
+	Version 04.06.2019
+} 
+% z.B. Name der Veranstaltung
+
+% Rechter Teil des Headers
+\fancyhead[R]{
+	\begin{small}
+%		\begin{tabular}{|rr|}\hline
+			Abgabegruppe: AG42%\\\hline
+			%\multicolumn{1}{r}{Datum:}&\multicolumn{1}{r}{\todayshort}
+%		\end{tabular}
+	\end{small}
+} 
+\fancyfoot[C]{
+	\thepage\space von \pageref{LastPage}
+}
+\headheight=25pt
+\begin{document}
+	%	\maketitle
+	%	\tableofcontents
+	\newpage
+	\begin{center}
+		\begin{tabular}{ccc}
+			Gerlach, Luisa&gerlaclu&599244\\
+			Heine, Tom Martin&heinetom&597978\\
+			Kühne, Marc Sebastian&kuehnese&599833\\
+			Seegert, Noah-Joël&segertno&596234
+		\end{tabular}
+	\end{center}
+	\section*{Aufgabe 1}
+		\subsection*{Direct Mapped Cache}
+		\begin{longtable}{|cccccccc|}
+			\hline
+			0&1&2&3&4&5&6&7\\
+			\hline
+			&&2&&&&&\\
+			\hline
+			&&2&&&5&&\\
+			\hline
+			0&&2&&&5&&\\
+			\hline
+			0&&2&&&13&&\\
+			\hline
+			0&&[\textbf{2}]&&&13&&\\
+			\hline
+			0&&2&&&5&&\\
+			\hline
+			0&&10&&&5&&\\
+			\hline
+			8&&10&&&5&&\\
+			\hline
+			0&&10&&&5&&\\
+			\hline
+			0&&10&&4&5&&\\
+			\hline
+			0&&10&&4&[\textbf{5}]&&\\
+			\hline
+			0&&2&&4&5&&\\
+			\hline 
+		\end{longtable}
+		In der Grafik sind \textbf{Hits} dick gedruckt in [ ] dargestellt.
+		Bei gegebener Zugriffssequenz ergibt sich eine Trefferquote von \(\frac{2}{12} \approx 16.67\% \).
+		
+		\subsection*{Set-assoziativer Cache mit Set-Größe 4}
+		Hierbei wird von der \textbf{FIFO}-Ersatzstrategie ausgegangen.\\
+		\begin{longtable}{|cccc||cccc|}
+			\hline
+			0&1&2&3&0&1&2&3\\
+			\hline
+			2&&&&&&&\\
+			\hline
+			2&&&&5&&&\\
+			\hline
+			2&0&&&5&&&\\
+			\hline
+			2&0&&&5&13&&\\
+			\hline
+			[\textbf{2}]&0&&&5&13&&\\
+			\hline
+			2&0&&&[\textbf{5}]&13&&\\
+			\hline
+			2&0&10&&5&13&&\\
+			\hline
+			2&0&10&8&5&13&&\\
+			\hline
+			2&[\textbf{0}]&10&8&5&13&&\\
+			\hline
+			4&0&10&8&5&13&&\\
+			\hline
+			4&0&10&8&[\textbf{5}]&13&&\\
+			\hline
+			4&2&10&8&5&13&&\\
+			\hline 
+		\end{longtable}
+		In der Grafik sind \textbf{Hits} dick gedruckt in [ ]   dargestellt.
+		Bei gegebener Zugriffssequenz ergibt sich eine Trefferquote von \(\frac{4}{12} \approx 33.34\% \).
+		
+		\subsection*{Vollassoziativer Cache mit LRU-Zugriff}
+		
+		\begin{longtable}{|cccccccc|}
+			\hline
+			0&1&2&3&4&5&6&7\\
+			\hline
+			2&&&&&&&\\
+			\hline
+			2&5&&&&&&\\
+			\hline
+			2&5&0&&&&&\\
+			\hline
+			2&5&0&13&&&&\\
+			\hline
+			[\textbf{2}]&5&0&13&&&&\\
+			\hline
+			2&[\textbf{5}]&0&13&&&&\\
+			\hline
+			2&5&0&13&10&&&\\
+			\hline
+			2&5&0&13&10&8&&\\
+			\hline
+			2&5&[\textbf{0}]&13&10&8&&\\
+			\hline
+			2&5&0&13&10&8&4&\\
+			\hline
+			2&[\textbf{5}]&0&13&10&8&4&\\
+			\hline
+			[\textbf{2}]&5&0&13&10&8&4&\\
+			\hline 
+		\end{longtable}
+		In der Grafik sind \textbf{Hits} dick gedruckt in [ ] dargestellt.
+		Bei gegebener Zugriffssequenz ergibt sich eine Trefferquote von \(\frac{5}{12} \approx 41.67\% \).
+	\section*{Aufgabe 2}
+		Bei einem Writeback-Cache mit einer Cachelinegröße von 32 Byte, einer Größe von 1 MByte und einem byteadressierten Hauptspeicher der Größe 4 GByte, müssen:
+		\subsection*{(a)}
+		$\dotsc$ bei einem 4-fach-setassoziativen Cache 16 Bit für jeden Eintrag von Steuerinformationen bereitstehen.
+		
+		\subsection*{(b)}
+		$\dotsc$ 29 Bit für Einträge der Steuerinformationen in einem voll assoziativen Cache bereitgestellt werden.
+		
+		\subsection*{(c)}
+		$\dotsc$ 14 Bit bereitgestellt werden, wenn ein direct mapped Cache zum Einsatz kommt.
+	\newpage
+	\section*{Aufgabe 3}
+		\subsection*{(a)}
+		\begin{longtable}{|l|l|c|r|}
+			\hline
+			Adresse&Adresse binär&Seite&Offset\\\hline\hline
+			  81&0000 0101 0001&0&81\\\hline
+			1852&0111 0011 1100&3&316\\\hline
+			 396&0001 1000 1100&0&396\\\hline
+			2810&1010 1111 1010&5&372\\\hline
+			2019&0111 1110 0011&3&483\\\hline
+			 562&0010 0011 0010&1&25\\\hline
+			3456&1101 1000 0000&6&192\\\hline
+		\end{longtable}
+		%9 bit offset
+		\subsection*{(b)}
+%		\begin{longtable}{|c|}
+%			%Seitennummer&Pageframe\\\hline
+%			\hline
+%			000 0101 0001\\\hline
+%			011 0011 1100\\\hline
+%			101 1000 1100\\\hline
+%			110 1111 1010\\\hline
+%			001 1110 0011\\\hline
+%			010 0011 0010\\\hline
+%			101 1000 0000\\\hline
+%		\end{longtable}
+		\begin{longtable}{|c|c|}\hline
+			Page frame&Valid Flag\\\hline
+			\hline
+			10&0\\\hline
+			01&1\\\hline
+			&0\\\hline
+			00&1\\\hline
+			&0\\\hline
+			11&1\\\hline
+			10&1\\\hline
+			&0\\\hline
+		\end{longtable}
+		\subsection*{(c)}
+		\begin{longtable}{|c|c|}
+			%Seitennummer&Pageframe\\\hline
+			\hline
+			Log.Adresse&Phys. Adresse()\\\hline\hline
+			000 0 0101 0001&00 0 0101 0001\\\hline
+			011 1 0011 1100&01 1 0011 1100\\\hline
+			000 1 1000 1100&10 1 1000 1100\\\hline
+			101 0 1111 1010&11 0 1111 1010\\\hline
+			011 1 1110 0011&00 1 1110 0011\\\hline
+			001 0 0011 0010&01 0 0011 0010\\\hline
+			110 1 1000 0000&10 1 1000 0000\\\hline
+		\end{longtable}
+\end{document}
